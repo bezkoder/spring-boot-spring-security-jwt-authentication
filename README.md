@@ -3,6 +3,13 @@
 For more detail, please visit:
 > [Secure Spring Boot App with Spring Security & JWT Authentication](https://bezkoder.com/spring-boot-jwt-authentication/)
 
+# Fullstack
+
+> [Spring Boot + Vue.js JWT Authentication](https://bezkoder.com/spring-boot-vue-js-authentication-jwt-spring-security/)
+
+> [Spring Boot + Angular 8 JWT Authentication](https://bezkoder.com/angular-spring-boot-jwt-auth/)
+
+
 ## Run Spring Boot application
 ```
 mvn spring-boot:run
