@@ -3,6 +3,8 @@
 For more detail, please visit:
 > [Secure Spring Boot App with Spring Security & JWT Authentication](https://bezkoder.com/spring-boot-jwt-authentication/)
 
+> [For MongoDB](https://bezkoder.com/spring-boot-jwt-auth-mongodb/)
+
 # Fullstack
 
 > [Spring Boot + Vue.js JWT Authentication](https://bezkoder.com/spring-boot-vue-js-authentication-jwt-spring-security/)
