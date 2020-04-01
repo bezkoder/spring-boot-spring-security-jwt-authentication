@@ -11,6 +11,8 @@ For more detail, please visit:
 
 > [Spring Boot + Angular 8 JWT Authentication](https://bezkoder.com/angular-spring-boot-jwt-auth/)
 
+> [Spring Boot + React JWT Authentication](https://bezkoder.com/spring-boot-react-jwt-auth/)
+
 ## Dependency
 – If you want to use PostgreSQL:
 ```xml
