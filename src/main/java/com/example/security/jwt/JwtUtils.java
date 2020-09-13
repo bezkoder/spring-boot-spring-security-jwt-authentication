@@ -1,4 +1,4 @@
-package com.bezkoder.springjwt.security.jwt;
+package com.example.security.jwt;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Component;
 
-import com.bezkoder.springjwt.security.services.UserDetailsImpl;
+import com.example.security.services.UserDetailsImpl;
 import io.jsonwebtoken.*;
 
 @Component
