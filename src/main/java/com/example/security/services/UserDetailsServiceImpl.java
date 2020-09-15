@@ -12,6 +12,7 @@ import com.example.repository.UserRepository;
 
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
+
 	@Autowired
 	UserRepository userRepository;
 
@@ -23,5 +24,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 
 		return UserDetailsImpl.build(user);
 	}
-
 }
