@@ -23,6 +23,8 @@ For more detail, please visit:
 
 > [Spring Boot + Angular 10 JWT Authentication](https://bezkoder.com/angular-10-spring-boot-jwt-auth/)
 
+> [Spring Boot + Angular 11 JWT Authentication](https://bezkoder.com/angular-11-spring-boot-jwt-auth/)
+
 > [Spring Boot + React JWT Authentication](https://bezkoder.com/spring-boot-react-jwt-auth/)
 
 ## Fullstack CRUD App
