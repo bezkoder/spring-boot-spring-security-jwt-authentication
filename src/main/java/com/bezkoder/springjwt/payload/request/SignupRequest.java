@@ -7,12 +7,12 @@ import javax.validation.constraints.*;
 public class SignupRequest {
     @NotBlank
     @Size(min = 3, max = 20)
-    private String username;
+    private String nom;
  
     @NotBlank
     @Size(max = 50)
     @Email
-    private String email;
+    private String username;
     
     private Set<String> role;
     
@@ -20,20 +20,20 @@ public class SignupRequest {
     @Size(min = 6, max = 40)
     private String password;
   
+    public String getNom() {
+        return nom;
+    }
+ 
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+ 
     public String getUsername() {
         return username;
     }
  
     public void setUsername(String username) {
         this.username = username;
-    }
- 
-    public String getEmail() {
-        return email;
-    }
- 
-    public void setEmail(String email) {
-        this.email = email;
     }
  
     public String getPassword() {

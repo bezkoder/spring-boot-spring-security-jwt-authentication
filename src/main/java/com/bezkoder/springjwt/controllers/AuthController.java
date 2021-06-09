@@ -32,7 +32,7 @@ import com.bezkoder.springjwt.repository.UserRepository;
 import com.bezkoder.springjwt.security.jwt.JwtUtils;
 import com.bezkoder.springjwt.security.services.UserDetailsImpl;
 
-@CrossOrigin(origins = "*", maxAge = 3600)
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/api/auth")
 public class AuthController {
@@ -74,21 +74,21 @@ public class AuthController {
 
 	@PostMapping("/signup")
 	public ResponseEntity<?> registerUser(@Valid @RequestBody SignupRequest signUpRequest) {
-		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
+		if (userRepository.existsByNom(signUpRequest.getNom())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Username is already taken!"));
 		}
 
-		if (userRepository.existsByEmail(signUpRequest.getEmail())) {
+		if (userRepository.existsByUsername(signUpRequest.getUsername())) {
 			return ResponseEntity
 					.badRequest()
 					.body(new MessageResponse("Error: Email is already in use!"));
 		}
 
 		// Create new user's account
-		User user = new User(signUpRequest.getUsername(), 
-							 signUpRequest.getEmail(),
+		User user = new User(signUpRequest.getNom(), 
+							 signUpRequest.getUsername(),
 							 encoder.encode(signUpRequest.getPassword()));
 
 		Set<String> strRoles = signUpRequest.getRole();
