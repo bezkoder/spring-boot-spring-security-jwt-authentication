@@ -29,6 +29,8 @@ public class User {
 
     private String img;
 
+    private String details;
+
     //Modos ---> Fer una taula que tingui id i el modo (1-4) que vol jugar
     private Boolean modo_flex;
 
@@ -160,6 +162,17 @@ public class User {
     public void setImg(String img) {
         this.img = img;
     }
+
+    public String getDetails() {
+        return details;
+    }
+
+    public void setDetails(String details) {
+        this.details = details;
+    }
+
+
+
     //  --->     MODOS
     public Boolean getFlex() {
         return modo_flex;

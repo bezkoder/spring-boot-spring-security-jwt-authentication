@@ -24,12 +24,21 @@ public interface MatchesRepository extends JpaRepository<Matches, Long> {
     @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 OR m.user_id_2 = ?1 AND m.is_match = 0", nativeQuery = true)
 	List<Matches> findUserNotMatches(Long user_id_1);
     
-    @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2 OR m.user_id_1 = ?2 AND m.user_id_2 = ?1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2 OR m.user_id_1 = ?2 AND m.user_id_2 = ?1 AND m.liked_1 = 1", nativeQuery = true)
     Boolean alreadyLiked(Long user_id_1, Long user_id_2);
+
+    @Query(value = "SELECT * FROM Matches m WHERE m.liked_1 = 1 AND m.user_id_1 = ?1 AND m.user_id_2 = ?2", nativeQuery = true)
+    Boolean user1_liked(Long user_id_1, Long user_id_2);
 
     //Potser sense optional
     @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2", nativeQuery = true)
     Optional<Matches> findByMatches(Long user_id_1, Long user_id_2);
+
+    @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2 OR m.user_id_1 = ?2 AND m.user_id_2 = ?1", nativeQuery = true)
+    Long findIdByUsers(Long user_id_1, Long user_id_2);
+    
+    @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2 OR m.user_id_1 = ?2 AND m.user_id_2 = ?1", nativeQuery = true)
+    Optional<Matches> findTableByUsers(Long user_id_1, Long user_id_2);
 
     //OR m.user_id_1 = ?2 AND m.user_id_2 = ?1
 

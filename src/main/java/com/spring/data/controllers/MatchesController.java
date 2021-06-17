@@ -55,16 +55,43 @@ public class MatchesController {
 
 	
 	
-	/*//Potser fent un bool aqui i posarho a mirar si es match
-	@PostMapping("/like/{user_id_1}/{user_id_}")
-	public ResponseEntity<Boolean> userlike(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_1") long user_id_2) {
-		if (matchesRepository.alreadyLiked(user_id_1, user_id_2)) {
+	//Mirar si fa match
+	/*@PostMapping("/{user_id_1}/{user_id_}")
+	public Boolean isMatch(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_1") long user_id_2, @RequestParam Boolean liked_2) {
+		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
+		if (matchData.isPresent()) {
+			if (matchesRepository.alreadyLiked(user_id_1, user_id_2) && liked_2 == true){
+				Matches _matches = matchData.get();
+				_matches.setIs_Liked(matches.getIs_Liked());
+				getTableId(user_id_1, user_id_2);
+			}
+	
 			
+			*/
+
+
+
+
+	
+	//Retorna Id de la taula
+	@GetMapping("/getTableId/{user_id_1}/{user_id_2}")
+	public Long getTableId(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2) {
+		return matchesRepository.findIdByUsers(user_id_1, user_id_2);
+	}
+
+	@GetMapping("/getTableId/{user_id_1}/{user_id_2}") //Funcio auxiliar cridada a isMatch
+	public ResponseEntity<Matches> getTable(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2) {
+		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
+		if (matchData.isPresent()) {
+			Matches _matches = matchData.get();
+			return new ResponseEntity<>(matchesRepository.save(_matches), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
-	}*/
+	}	
+	
 
-
-	//Retorna taula matches del user id_1, id_2
+	//Retorna taula matches del user id_1, id_2 --> No se si funciona
 	@GetMapping("/getTable/{user_id_1}/{user_id_2}")
 	public ResponseEntity<Matches> getMatch(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2) {
 		Optional<Matches> matchData = matchesRepository.findByMatches(user_id_1, user_id_2);

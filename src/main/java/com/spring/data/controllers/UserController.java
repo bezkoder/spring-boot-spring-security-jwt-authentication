@@ -115,6 +115,7 @@ public class UserController {
 			_user.setUsername(user.getUsername());
 			_user.setServer(user.getServer());
 			_user.setRolPred(user.getRolPred());
+			_user.setDetails(user.getDetails());
 			_user.setImg(user.getImg());
 			_user.setPassword(user.getPassword());
 			return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
