@@ -88,7 +88,7 @@ public class UserController {
 			_user.setDuo(user.getDuo());
 			_user.setClash(user.getClash());
 			_user.setOtro(user.getOtro());
-			_user.set4fun(user.get4fun());
+			_user.setforfun(user.getForFun());
 			_user.setChamps(user.getChamps());
 			_user.setOtps(user.getOtps());
 			_user.setTryHard(user.getTryHard());

@@ -41,7 +41,7 @@ public class User {
     private Boolean modo_otro;
 
     //Tipos ---> Fer una taula que tingui id i el modo (1-5) que vol jugar
-    private Boolean tipo_4fun;
+    private Boolean tipo_ForFun;
     
     private Boolean tipo_tryhard;
 
@@ -207,12 +207,12 @@ public class User {
     }
 
     //  --->    TIPOS
-    public Boolean get4fun() {
-        return tipo_4fun;
+    public Boolean getForFun() {
+        return tipo_ForFun;
     }
     
-    public void set4fun(Boolean tipo_4fun) {
-        this.tipo_4fun = tipo_4fun;
+    public void setforfun(Boolean tipo_ForFun) {
+        this.tipo_ForFun = tipo_ForFun;
     }
 
     public Boolean getChamps() {

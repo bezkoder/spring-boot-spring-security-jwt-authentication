@@ -53,33 +53,97 @@ public class MatchesController {
 	}*/
 
 
+	//Falta fer una query per crear una nova entrada a la taula amb el like
 	
+	//Mirar si fa match ---> Implementat de moment amb un request body // Error: No converter found capable of converting from type [java.lang.Integer] to type [java.lang.Boolean]
 	
-	//Mirar si fa match
-	/*@PostMapping("/{user_id_1}/{user_id_}")
-	public Boolean isMatch(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_1") long user_id_2, @RequestParam Boolean liked_2) {
+
+
+	//@PutMapping("/{user_id_1}/{user_id_2}/{liked_2}")
+    public Boolean isMatch(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("liked_2") boolean liked_2) {
+        Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
+        if (matchData.isPresent()) {
+            Matches _matches = matchData.get();
+			boolean isliked = matchesRepository.alreadyLiked(user_id_1, user_id_2) > 0;
+            if (isliked && liked_2 == true) {
+                //Matches _matches = matchData.get();
+                _matches.setLiked_2(liked_2);
+                _matches.setIs_Match(true);
+                matchesRepository.save(matchData);
+                return true;
+            }
+            else {
+                //_matches.setLiked_2(false);
+                return false;
+        }
+        
+    }
+    else return false; 
+}
+
+
+
+
+@PutMapping("/{user_id_1}/{user_id_2}/{liked_2}")
+	public ResponseEntity<Matches> isMatch2(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("liked_2") boolean liked_2) {
 		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
 		if (matchData.isPresent()) {
-			if (matchesRepository.alreadyLiked(user_id_1, user_id_2) && liked_2 == true){
-				Matches _matches = matchData.get();
-				_matches.setIs_Liked(matches.getIs_Liked());
-				getTableId(user_id_1, user_id_2);
+			Matches _matches = matchData.get();
+			boolean isliked = matchesRepository.alreadyLiked(user_id_1, user_id_2) > 0;
+			if (isliked && liked_2 == true) {
+
+				//Matches _matches = matchData.get();
+				_matches.setLiked_2(liked_2);
+				_matches.setIs_Match(true);
+				//matchesRepository.save(matchData);
+				return new ResponseEntity<>(matchesRepository.save(_matches), HttpStatus.OK);
 			}
+			else {
+				//_matches.setLiked_2(false);
+				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+		
+	}
+	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+}
+
+/*
+
+@PutMapping("/update/preferences/{id}")
+	public ResponseEntity<User> updateModo(@PathVariable("id") long id, @RequestBody User user) {
+		Optional<User> userData = userRepository.findById(id);
+
+		if (userData.isPresent()) {
+			User _user = userData.get();
+			_user.setFlex(user.getFlex());
+			_user.setDuo(user.getDuo());
+			_user.setClash(user.getClash());
+			_user.setOtro(user.getOtro());
+			_user.setforfun(user.getForFun());
+			_user.setChamps(user.getChamps());
+			_user.setOtps(user.getOtps());
+			_user.setTryHard(user.getTryHard());
+			_user.setBot(user.getBot());
+			_user.setFill(user.getFill());
+			_user.setJungle(user.getJungle());
+			_user.setMid(user.getMid());
+			_user.setSupp(user.getSupp());
+			_user.setTop(user.getTop());
+			return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
+		} else {
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+		}
+	}
+*/
 	
-			
-			*/
-
-
-
-
-	
-	//Retorna Id de la taula
+		
+	//Retorna Id de la taula (en teoria no s'ha d'utilitzar)
 	@GetMapping("/getTableId/{user_id_1}/{user_id_2}")
 	public Long getTableId(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2) {
 		return matchesRepository.findIdByUsers(user_id_1, user_id_2);
 	}
 
-	@GetMapping("/getTableId/{user_id_1}/{user_id_2}") //Funcio auxiliar cridada a isMatch
+	@GetMapping("/getTable/{user_id_1}/{user_id_2}") //Funcio auxiliar per fer proves amb postman 
 	public ResponseEntity<Matches> getTable(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2) {
 		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
 		if (matchData.isPresent()) {
@@ -91,8 +155,8 @@ public class MatchesController {
 	}	
 	
 
-	//Retorna taula matches del user id_1, id_2 --> No se si funciona
-	@GetMapping("/getTable/{user_id_1}/{user_id_2}")
+	//Retorna taula matches del user id_1, id_2 --> No cal utilitzar-la 
+	//@GetMapping("/getTable/{user_id_1}/{user_id_2}")
 	public ResponseEntity<Matches> getMatch(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2) {
 		Optional<Matches> matchData = matchesRepository.findByMatches(user_id_1, user_id_2);
 
@@ -110,7 +174,7 @@ public class MatchesController {
 
 		if (matchData.isPresent()) {
 			Matches _matches = matchData.get();
-			_matches.setIs_Liked(matches.getIs_Liked());
+			_matches.setLiked_2(matches.getLiked_2());
 			return new ResponseEntity<>(matchesRepository.save(_matches), HttpStatus.OK);
 		} else {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
@@ -130,11 +194,13 @@ public class MatchesController {
 		}
 	}
 
+	//No cal utilitzar-la
     @GetMapping("/{user_id_1}/{user_id_2}")
 	public Boolean isMatch(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") Long user_id_2) {
 		return matchesRepository.findIsMatch(user_id_1, user_id_2);
 	}
 
+	//Matches del usuari user_id_1
     @GetMapping("/user/{user_id_1}")
 	public List<Matches> getUserMatches(@PathVariable("user_id_1") long user_id_1) {
 		

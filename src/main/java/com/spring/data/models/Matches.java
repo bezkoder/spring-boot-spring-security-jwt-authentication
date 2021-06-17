@@ -23,8 +23,11 @@ public class Matches {
     @Column(name = "is_match")
     private Boolean is_match;
 
-    @Column(name = "is_liked")
-    private Boolean is_liked;
+    @Column(name = "liked_1")
+    private Boolean liked_1;
+
+    @Column(name = "liked_2")
+    private Boolean liked_2;
 
     public Matches() {}
 
@@ -65,12 +68,20 @@ public class Matches {
         return this.is_match = is_match;
     }
 
-    public Boolean getIs_Liked() {
-        return is_liked;
+    public Boolean getLiked_1() {
+        return liked_1;
     }
 
-    public Boolean setIs_Liked(Boolean is_liked) {
-        return this.is_liked = is_liked;
+    public Boolean setIs_Liked_1(Boolean liked_1) {
+        return this.liked_1 = liked_1;
+    }
+
+    public Boolean getLiked_2() {
+        return liked_2;
+    }
+
+    public Boolean setLiked_2(Boolean liked_2) {
+        return this.liked_2 = liked_2;
     }
 
     @Override
