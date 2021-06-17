@@ -12,12 +12,12 @@ import javax.validation.constraints.Size;
 @Table(name = "user")
 public class User {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(name = "username")
     private String username;
-
+    
     @Column(name = "nom")
     private String nom;
 
@@ -26,6 +26,8 @@ public class User {
     private String server;
 
     private String rol_pred;
+
+    private String img;
 
     //Modos ---> Fer una taula que tingui id i el modo (1-4) que vol jugar
     private Boolean modo_flex;
@@ -149,6 +151,14 @@ public class User {
     
     public void setRolPred(String rol_pred) {
         this.rol_pred = rol_pred;
+    }
+
+    public String getImg() {
+        return img;
+    }
+
+    public void setImg(String img) {
+        this.img = img;
     }
     //  --->     MODOS
     public Boolean getFlex() {

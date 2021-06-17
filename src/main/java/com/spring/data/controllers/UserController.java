@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 
-@CrossOrigin(origins = "http://localhost:8080")
+@CrossOrigin(origins = "*")
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -30,15 +30,15 @@ public class UserController {
 	@Autowired
 	UserRepository userRepository;
 
-	/*@GetMapping("/users")
-	public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String nom) {
+	@GetMapping("/all")
+	public ResponseEntity<List<User>> getAllUsers(@RequestParam(required = false) String username) {
 		try {
 			List<User> users = new ArrayList<User>();
 
-			if (nom == null)
+			//if (username == null)
 				userRepository.findAll().forEach(users::add);
-			else
-				userRepository.findByStringContaining(nom).forEach(users::add);
+			//else
+			//	userRepository.findByStringContaining(username).forEach(users::add);
 
 			if (users.isEmpty()) {
 				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
@@ -48,7 +48,7 @@ public class UserController {
 		} catch (Exception e) {
 			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 		}
-	}*/
+	}
 
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
@@ -115,6 +115,7 @@ public class UserController {
 			_user.setUsername(user.getUsername());
 			_user.setServer(user.getServer());
 			_user.setRolPred(user.getRolPred());
+			_user.setImg(user.getImg());
 			_user.setPassword(user.getPassword());
 			return new ResponseEntity<>(userRepository.save(_user), HttpStatus.OK);
 		} else {

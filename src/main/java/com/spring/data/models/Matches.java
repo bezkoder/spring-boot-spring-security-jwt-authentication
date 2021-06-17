@@ -5,25 +5,30 @@ import javax.persistence.*;
 
 
 @Entity
-@Table(name ="match")
-public class Match {
+@Table(name ="matches")
+public class Matches {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column(name = "user_id_1")
+    //@Column(name = "user_id_1")
+    //@OneToOne(cascade = CascadeType.ALL)
+    //@JoinColumn(name = "user_id_1", referencedColumnName = "id")
     private Long user_id_1;
 
-    @Column(name = "user_id_2")
+   //@OneToOne(cascade = CascadeType.ALL)
+   //@JoinColumn(name = "user_id_2", referencedColumnName = "id")
     private Long user_id_2;
 
+    @Column(name = "is_match")
     private Boolean is_match;
 
-    private Boolean is_liked = false;
+    @Column(name = "is_liked")
+    private Boolean is_liked;
 
-    public Match() {}
+    public Matches() {}
 
-    public Match(Long user_id_1, Long user_id_2) {
+    public Matches(Long user_id_1, Long user_id_2) {
         this.user_id_1 = user_id_1;
         this.user_id_2 = user_id_2;
     }
