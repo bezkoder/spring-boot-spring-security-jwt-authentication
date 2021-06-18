@@ -14,11 +14,13 @@ public class Matches {
     //@Column(name = "user_id_1")
     //@OneToOne(cascade = CascadeType.ALL)
     //@JoinColumn(name = "user_id_1", referencedColumnName = "id")
-    private Long user_id_1;
+    @Column(name = "user_id_1")
+    private int user_id_1;
 
    //@OneToOne(cascade = CascadeType.ALL)
    //@JoinColumn(name = "user_id_2", referencedColumnName = "id")
-    private Long user_id_2;
+    @Column(name = "user_id_2")
+    private int user_id_2;
 
     @Column(name = "is_match", columnDefinition = "boolean default false")
     private Boolean is_match = false;
@@ -36,7 +38,7 @@ public class Matches {
         this.user_id_2 = user_id_2;
     }*/
 
-    public Matches(long user_id_1, long user_id_2, Boolean liked_1, boolean liked_2, boolean is_match) {
+    public Matches(int user_id_1, int user_id_2, Boolean liked_1, boolean liked_2, boolean is_match) {
     }
 
     public Long getId() {
@@ -47,19 +49,19 @@ public class Matches {
         this.id = id;
     }
 
-    public Long getUser_Id_1() {
+    public int getUser_Id_1() {
         return user_id_1;
     }
 
-    public void setUser_Id_1(Long id_user) {
+    public void setUser_Id_1(int id_user) {
         this.user_id_1 = id_user;
     }
 
-    public Long getUser_Id_2() {
+    public int getUser_Id_2() {
         return user_id_2;
     }
 
-    public void setUser_Id_2(Long id_user) {
+    public void setUser_Id_2(int id_user) {
         this.user_id_2 = id_user;
     }
 

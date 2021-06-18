@@ -39,13 +39,13 @@ public interface MatchesRepository extends JpaRepository<Matches, Long> {
     @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2 OR m.user_id_1 = ?2 AND m.user_id_2 = ?1", nativeQuery = true)
     Long findIdByUsers(Long user_id_1, Long user_id_2);
 
-    @Query(value = "SELECT * FROM Matches m WHERE m.is_match = 1", nativeQuery = true)
+    @Query(value = "SELECT * FROM Matches m WHERE m.is_match = 0", nativeQuery = true)
     List<Matches> findAllMatches();
     
     @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2 OR m.user_id_1 = ?2 AND m.user_id_2 = ?1", nativeQuery = true)
     Optional<Matches> findTableByUsers(Long user_id_1, Long user_id_2);
 
-    void save(Optional<Matches> matchData);
+    //void save(Optional<Matches> matchData);
 
     /*@Modifying
     @Query(value = "INSERT INTO MATCHES (user_id_1, user_id_2, is_match, liked_1, liked_2) values (:user_id_1, :user_id_2, :is_match, :status)", nativeQuery = true)

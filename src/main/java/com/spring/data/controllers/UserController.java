@@ -61,7 +61,7 @@ public class UserController {
 			for (long i = 1; i <= n; ++i) {
 				boolean isliked = matchesRepository.alreadyLiked(id, i) > 0;
 				if (isliked) {
-					users.remove(matchesRepository)
+					users.remove(matchesRepository.)
 				}
 			}
 			

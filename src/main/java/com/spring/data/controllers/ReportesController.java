@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -58,6 +59,16 @@ public class ReportesController {
 			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 	}
+
+    @PostMapping("/create/{user_id}/{user_id_reported}")
+    public ResponseEntity<Reportes> createReport(@RequestBody Reportes reportes) { 
+        try {
+            Reportes _reportes = reportesRepository.save(new Reportes(reportes.getUserId(), reportes.getUserId_reported(), reportes.getMotiu(), reportes.getComentari(), reportes.getProva(), reportes.getSolucionado()));
+            return new ResponseEntity<>(_reportes, HttpStatus.CREATED);
+        } catch (Exception e) {
+            return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+        }
+    }
 
     @PutMapping("/update/{id}")
 	public ResponseEntity<Reportes> updateModo(@PathVariable("id") long id, @RequestBody Reportes reportes) {

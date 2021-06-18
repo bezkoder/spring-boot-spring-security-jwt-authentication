@@ -24,7 +24,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @CrossOrigin(origins = "*")
 @RestController
-@RequestMapping("/match")
+@RequestMapping("/matches")
 public class MatchesController {
 
     @Autowired
@@ -79,7 +79,7 @@ public class MatchesController {
                 //Matches _matches = matchData.get();
                 _matches.setLiked_2(liked_2);
                 _matches.setIs_Match(true);
-                matchesRepository.save(matchData);
+               // matchesRepository.save(matchData);
                 return true;
             }
             else {
@@ -126,11 +126,20 @@ public class MatchesController {
 	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 }*/
 
+/*@PostMapping("/newlike/{user_id_1}/{user_id_2}")
+public ResponseEntity<Matches> liked(@PathVariable("user_id_1") Long user_id_1, @PathVariable("user_id_2") Long user_id_2) { 
+	try {
+		Matches _matches = matchesRepository.save(new Matches((long)1, (long)5, true, false, false));
+		return new ResponseEntity<>(_matches, HttpStatus.CREATED);
+	} catch (Exception e) {
+		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
+}*/
+
 @PostMapping("/newlike")
 public ResponseEntity<Matches> liked(@RequestBody Matches matches) { 
 	try {
-		Matches _matches = matchesRepository
-				.save(new Matches(matches.getUser_Id_1(), matches.getUser_Id_2(), matches.getLiked_1(), false, false));
+		Matches _matches = matchesRepository.save(new Matches(matches.getUser_Id_1(), matches.getUser_Id_2(), true, false, false));
 		return new ResponseEntity<>(_matches, HttpStatus.CREATED);
 	} catch (Exception e) {
 		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
