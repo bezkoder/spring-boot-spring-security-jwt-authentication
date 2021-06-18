@@ -20,20 +20,23 @@ public class Matches {
    //@JoinColumn(name = "user_id_2", referencedColumnName = "id")
     private Long user_id_2;
 
-    @Column(name = "is_match")
-    private Boolean is_match;
+    @Column(name = "is_match", columnDefinition = "boolean default false")
+    private Boolean is_match = false;
 
-    @Column(name = "liked_1")
+    //@Column(name = "liked_1", columnDefinition = "boolean default true")
     private Boolean liked_1;
 
-    @Column(name = "liked_2")
-    private Boolean liked_2;
+    @Column(name = "liked_2", columnDefinition = "boolean default false")
+    private Boolean liked_2 = false;
 
     public Matches() {}
 
-    public Matches(Long user_id_1, Long user_id_2) {
+    /*public Matches(Long user_id_1, Long user_id_2) {
         this.user_id_1 = user_id_1;
         this.user_id_2 = user_id_2;
+    }*/
+
+    public Matches(long user_id_1, long user_id_2, Boolean liked_1, boolean liked_2, boolean is_match) {
     }
 
     public Long getId() {

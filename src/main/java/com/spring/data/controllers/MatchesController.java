@@ -31,14 +31,24 @@ public class MatchesController {
 	MatchesRepository matchesRepository;
 
 
-	/*				RETORNI TOTS ELS USERS QUE NO HA FET MATCH
-	@GetMapping("/all/{user_id_1}")
-	public ResponseEntity<List<Matches>> getAllUsers(@PathVariable("user_id_1") long user_id_1) {
+			
+	@GetMapping("/all")
+	public ResponseEntity<List<Matches>> getAllUsers() {
 		try {
 			List<Matches> matches = new ArrayList<Matches>();
 
-			
-			matchesRepository.findUserNotMatches(user_id_1).forEach();
+			matchesRepository.findAllMatches().forEach(matches::add);
+
+			if (matches.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+			return new ResponseEntity<>(matches, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+		
+	
 			/*else
 				matchesRepository.findByStringContaining(nom).forEach(users::add);
 
@@ -84,6 +94,8 @@ public class MatchesController {
 
 
 
+
+/*
 @PutMapping("/{user_id_1}/{user_id_2}/{liked_2}")
 	public ResponseEntity<Matches> isMatch2(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("liked_2") boolean liked_2) {
 		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
@@ -98,14 +110,78 @@ public class MatchesController {
 				//matchesRepository.save(matchData);
 				return new ResponseEntity<>(matchesRepository.save(_matches), HttpStatus.OK);
 			}
+			else if (liked_2 == true) {
+				@PostMapping("/addShoe")
+				public Shoe addShoe(@RequestBody Shoe shoe) {
+					return shoeRepository.save(shoe);
+				}
+			}
 			else {
+
 				//_matches.setLiked_2(false);
 				return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		
 	}
 	return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+}*/
+
+@PostMapping("/newlike")
+public ResponseEntity<Matches> liked(@RequestBody Matches matches) { 
+	try {
+		Matches _matches = matchesRepository
+				.save(new Matches(matches.getUser_Id_1(), matches.getUser_Id_2(), matches.getLiked_1(), false, false));
+		return new ResponseEntity<>(_matches, HttpStatus.CREATED);
+	} catch (Exception e) {
+		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+	}
 }
+
+
+@PostMapping("/{user_id_1}/{user_id_2}/{user_liked}")
+	public ResponseEntity<Matches> isMatch2(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("user_liked") Boolean user_liked, @RequestBody (required=false) Matches matches) {
+		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
+		if (matchData.isPresent()) {
+			Matches _matches = matchData.get();
+			boolean isliked = matchesRepository.alreadyLiked(user_id_1, user_id_2) > 0;
+			if (isliked && user_liked == true) {
+
+				//Matches _matches = matchData.get();
+				_matches.setLiked_2(user_liked);
+				_matches.setIs_Match(true);
+				//matchesRepository.save(matchData);
+				return new ResponseEntity<>(matchesRepository.save(_matches), HttpStatus.OK);
+			}
+		}
+		else if (user_liked == true) {
+			//Cridara a funcio auxiliar per crear nou registre
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}
+
+/*7@PostMapping("/{user_id_1}/{user_id_2}/{user_liked}")
+	public ResponseEntity<Matches> isMatch2(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("user_liked") Boolean user_liked, @RequestBody (required=false) Matches matches) {
+		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
+		if (matchData.isPresent()) {
+			Matches _matches = matchData.get();
+			boolean isliked = matchesRepository.alreadyLiked(user_id_1, user_id_2) > 0;
+			if (isliked && user_liked == true) {
+
+				//Matches _matches = matchData.get();
+				_matches.setLiked_2(user_liked);
+				_matches.setIs_Match(true);
+				//matchesRepository.save(matchData);
+				return new ResponseEntity<>(matchesRepository.save(_matches), HttpStatus.OK);
+			}
+		}
+		else if (user_liked == true) {
+			Matches _matches = matchesRepository.save(new Matches(matches.getUser_Id_1(), matches.getUser_Id_2(), matches.getLiked_1(), false, false));
+			return new ResponseEntity<>(_matches, HttpStatus.CREATED);
+		}
+		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+	}*/
+			
+		
 
 /*
 

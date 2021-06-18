@@ -50,6 +50,39 @@ public class UserController {
 		}
 	}
 
+// Metode per filtrar usuaris + matches --> No acabat
+	/*
+@GetMapping("/all/{id}")
+	public ResponseEntity<List<User>> getAllUsers(@PathVariable("id") long id, @RequestParam(required = false) String username) {
+		try {
+			List<User> users = new ArrayList<User>();
+			userRepository.findAll().forEach(users::add);
+			int n = users.size();
+			for (long i = 1; i <= n; ++i) {
+				boolean isliked = matchesRepository.alreadyLiked(id, i) > 0;
+				if (isliked) {
+					users.remove(matchesRepository)
+				}
+			}
+			
+			
+				
+			//else
+			//	userRepository.findByStringContaining(username).forEach(users::add);
+
+			if (users.isEmpty()) {
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			}
+
+			return new ResponseEntity<>(users, HttpStatus.OK);
+		} catch (Exception e) {
+			return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+		}
+	}
+
+*/
+
+
 	@GetMapping("/{id}")
 	public ResponseEntity<User> getUserById(@PathVariable("id") long id) {
 		Optional<User> userData = userRepository.findById(id);
