@@ -163,7 +163,7 @@ public ResponseEntity<Matches> liked(@RequestBody Matches matches) {
 			}
 		}
 		else if (user_liked == true) {
-			//Cridara a funcio auxiliar per crear nou registre
+			liked(matches);
 		}
 		return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 	}

@@ -39,6 +39,11 @@ public class Matches {
     }*/
 
     public Matches(int user_id_1, int user_id_2, Boolean liked_1, boolean liked_2, boolean is_match) {
+        this.user_id_1 = user_id_1;
+        this.user_id_2 = user_id_2;
+        this.liked_1 = liked_1;
+        this.liked_2 = liked_2;
+        this.is_match = is_match;
     }
 
     public Long getId() {
