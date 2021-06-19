@@ -45,6 +45,11 @@ public interface MatchesRepository extends JpaRepository<Matches, Long> {
     @Query(value = "SELECT * FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2 OR m.user_id_1 = ?2 AND m.user_id_2 = ?1", nativeQuery = true)
     Optional<Matches> findTableByUsers(Long user_id_1, Long user_id_2);
 
+    @Query(value = "SELECT id FROM Matches m WHERE m.user_id_1 = ?1 AND m.user_id_2 = ?2 OR m.user_id_1 = ?2 AND m.user_id_2 = ?1", nativeQuery = true)
+    Long findId(Long user_id_1, Long user_id_2);
+
+
+
     //void save(Optional<Matches> matchData);
 
     /*@Modifying

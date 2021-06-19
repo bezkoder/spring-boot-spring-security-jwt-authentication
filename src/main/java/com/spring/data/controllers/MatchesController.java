@@ -310,20 +310,22 @@ try {
 
 	//@DeleteMapping("/delete/{id}")
 	//No s'esborra la conversa quan s'esborra el match perque falta id de la conversa
-	public ResponseEntity<HttpStatus> deleteConversa(@PathVariable("id") long id) {
-		try {
-			conversaRepository.deleteById(id);
+	public ResponseEntity<HttpStatus> deleteConversa(@PathVariable("id") long id, @PathVariable("id2") long id2) {
+	try {
+			long idtaula = conversaRepository.findId(id, id2);
+			conversaRepository.deleteById(idtaula);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
 		}
 	}
 
-	@DeleteMapping("/delete/{id}")
-	public ResponseEntity<HttpStatus> deleteMatch(@PathVariable("id") long id) {
+	@DeleteMapping("/delete/{id}/{id2}")
+	public ResponseEntity<HttpStatus> deleteMatch(@PathVariable("id") long id, @PathVariable("id2") long id2) {
 		try {
-			matchesRepository.deleteById(id);
-			deleteConversa(id);
+			long idtaula = matchesRepository.findId(id, id2);
+			matchesRepository.deleteById(idtaula);
+			deleteConversa(id, id2);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
 			return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);

@@ -77,8 +77,8 @@ try {
 }
 }
 
-@DeleteMapping("/delete/{id}")
-	public ResponseEntity<HttpStatus> delet(@PathVariable("id") long id) {
+@DeleteMapping("/delete/{id}/{id2}")
+	public ResponseEntity<HttpStatus> delete(@PathVariable("id") long id, @PathVariable("id2") long id2) {
 		try {
 			conversaRepository.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
