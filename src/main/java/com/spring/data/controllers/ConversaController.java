@@ -26,13 +26,13 @@ public class ConversaController {
     @Autowired
 	ConversaRepository conversaRepository;
 
-    @GetMapping("/all")
-	public ResponseEntity<List<Conversa>> getAllUsers(/*@RequestParam(required = false) String username*/) {
+    @GetMapping("/all/{id}")
+	public ResponseEntity<List<Conversa>> getAllUsers(@PathVariable("id") long id/*@RequestParam(required = false) String username*/) {
 		try {
 			List<Conversa> reportes = new ArrayList<Conversa>();
 
 			//if (username == null)
-				conversaRepository.findAll().forEach(reportes::add);
+				conversaRepository.findUserConverses(id).forEach(reportes::add);
 			//else
 			//	userRepository.findByStringContaining(username).forEach(users::add);
 
@@ -78,7 +78,7 @@ try {
 }
 
 @DeleteMapping("/delete/{id}")
-	public ResponseEntity<HttpStatus> deleteConversa(@PathVariable("id") long id) {
+	public ResponseEntity<HttpStatus> delet(@PathVariable("id") long id) {
 		try {
 			conversaRepository.deleteById(id);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
