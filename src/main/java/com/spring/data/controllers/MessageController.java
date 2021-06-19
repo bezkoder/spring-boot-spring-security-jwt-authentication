@@ -44,8 +44,8 @@ public class MessageController {
 		}
 	}
 
-    @PostMapping("/create/{conversa_id}}")
-    public ResponseEntity<Message> createReport(@PathVariable("id") long conversa_id, @RequestBody Message message) { 
+    @PostMapping("/create")
+    public ResponseEntity<Message> createReport(@RequestBody Message message) { 
         try {
             Message _message = messageRepository.save(new Message(message.getconversaId(), message.getUseridemisor(), message.getUseridreceptor(), message.getmessage(), message.getTimestamp()));
             return new ResponseEntity<>(_message, HttpStatus.CREATED);
