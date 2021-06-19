@@ -56,14 +56,24 @@ public class ConversaController {
 		}
 	}
 
-    @PostMapping("/newconversa")
-    public ResponseEntity<Conversa> novaConversa(@RequestBody Conversa conversa) { 
+    /*@PostMapping("/newconversa/{user_id_1}/{user_id_2}")
+    public ResponseEntity<Conversa> novaConversa(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("time_started") String time_started@RequestBody Conversa conversa) { 
 	try {
 		Conversa _conversa = conversaRepository.save(new Conversa(conversa.getUser_Id_creador(), conversa.getUser_Id_segon(), conversa.getTimeStarted()));
 		return new ResponseEntity<>(_conversa, HttpStatus.CREATED);
 	} catch (Exception e) {
 		return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
 	}
+}*/
+
+@PostMapping("/newconversa/{user_id_1}/{user_id_2}")
+public ResponseEntity<Conversa> novaConversa(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2 /* @PathVariable("time_started") String time_started@RequestBody Conversa conversa*/) { 
+try {
+	Conversa _conversa = conversaRepository.save(new Conversa(user_id_1, user_id_2/*, conversa.getTimeStarted())*/));
+	return new ResponseEntity<>(_conversa, HttpStatus.CREATED);
+} catch (Exception e) {
+	return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+}
 }
 
 

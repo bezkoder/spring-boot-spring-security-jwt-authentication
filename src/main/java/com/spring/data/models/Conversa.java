@@ -27,10 +27,10 @@ public class Conversa {
 
     public Conversa() {}
  
-    public Conversa(Long user_id_creador, Long user_id_segon, String time_started) {
+    public Conversa(Long user_id_creador, Long user_id_segon/*, String time_started)*/) {
 		this.user_id_creador = user_id_creador;
 		this.user_id_segon = user_id_segon;
-		this.time_started = time_started;
+		//this.time_started = time_started;
 	}
 
     public Long getId() {

@@ -33,6 +33,9 @@ public class MatchesController {
     @Autowired
 	MatchesRepository matchesRepository;
 
+	@Autowired
+	ConversaRepository conversaRepository;
+
 
 			
 	@GetMapping("/all")
@@ -149,9 +152,18 @@ public ResponseEntity<Matches> liked(@RequestBody Matches matches) {
 	}
 }
 
+@PostMapping("/newconversa/{user_id_1}/{user_id_2}")
+public ResponseEntity<Conversa> novaConversa(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2 /* @PathVariable("time_started") String time_started@RequestBody Conversa conversa*/) { 
+try {
+	Conversa _conversa = conversaRepository.save(new Conversa(user_id_1, user_id_2));/*, conversa.getTimeStarted())*/
+	return new ResponseEntity<>(_conversa, HttpStatus.CREATED);
+} catch (Exception e) {
+	return new ResponseEntity<>(null, HttpStatus.INTERNAL_SERVER_ERROR);
+}
+}
 
 @PostMapping("/{user_id_1}/{user_id_2}/{user_liked}")
-	public ResponseEntity<Matches> isMatch2(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("user_liked") Boolean user_liked, @RequestBody (required=false) Matches matches, @RequestBody (required=false) Conversa conversa) {
+	public ResponseEntity<Matches> isMatch2(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("user_liked") Boolean user_liked, @RequestBody (required=false) Matches matches /*@RequestBody (required=false) Conversa conversa*/) {
 		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
 		if (matchData.isPresent()) {
 			Matches _matches = matchData.get();
@@ -162,7 +174,7 @@ public ResponseEntity<Matches> liked(@RequestBody Matches matches) {
 				_matches.setLiked_2(user_liked);
 				_matches.setIs_Match(true);
 				//matchesRepository.save(matchData);
-				
+				novaConversa(user_id_1, user_id_2);
 				return new ResponseEntity<>(matchesRepository.save(_matches), HttpStatus.OK);
 			}
 		}
