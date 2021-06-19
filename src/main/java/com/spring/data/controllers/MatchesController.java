@@ -6,6 +6,9 @@ import java.util.Optional;
 import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 import com.spring.data.models.Matches;
 import com.spring.data.repository.*;
+import com.spring.data.controllers.ConversaController;
+
+import com.spring.data.models.Conversa;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -148,7 +151,7 @@ public ResponseEntity<Matches> liked(@RequestBody Matches matches) {
 
 
 @PostMapping("/{user_id_1}/{user_id_2}/{user_liked}")
-	public ResponseEntity<Matches> isMatch2(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("user_liked") Boolean user_liked, @RequestBody (required=false) Matches matches) {
+	public ResponseEntity<Matches> isMatch2(@PathVariable("user_id_1") long user_id_1, @PathVariable("user_id_2") long user_id_2, @PathVariable("user_liked") Boolean user_liked, @RequestBody (required=false) Matches matches, @RequestBody (required=false) Conversa conversa) {
 		Optional<Matches> matchData = matchesRepository.findTableByUsers(user_id_1, user_id_2);
 		if (matchData.isPresent()) {
 			Matches _matches = matchData.get();
@@ -159,6 +162,7 @@ public ResponseEntity<Matches> liked(@RequestBody Matches matches) {
 				_matches.setLiked_2(user_liked);
 				_matches.setIs_Match(true);
 				//matchesRepository.save(matchData);
+				
 				return new ResponseEntity<>(matchesRepository.save(_matches), HttpStatus.OK);
 			}
 		}
