@@ -5,6 +5,7 @@ import java.util.Optional;
 
 import com.fasterxml.jackson.databind.deser.DataFormatReaders.Match;
 import com.spring.data.models.Matches;
+import com.spring.data.models.Message;
 import com.spring.data.repository.*;
 import com.spring.data.controllers.ConversaController;
 
@@ -35,6 +36,9 @@ public class MatchesController {
 
 	@Autowired
 	ConversaRepository conversaRepository;
+
+	@Autowired
+	MessageRepository messageRepository;
 
 
 			
@@ -308,11 +312,27 @@ try {
 		return matchesRepository.findUserMatches(user_id_1);
 	}
 
-	//@DeleteMapping("/delete/{id}")
-	//No s'esborra la conversa quan s'esborra el match perque falta id de la conversa
+
+	//S'esborren els missatges amb conversa_id id 
+	@DeleteMapping("/delete/{id}")
+	public ResponseEntity<HttpStatus> deleteAllMessages(@PathVariable("id") long id) {
+		try {
+				List<Message> messages = messageRepository.findMessages(id);
+				messageRepository.deleteAll(messages);
+				return new ResponseEntity<>(HttpStatus.NO_CONTENT);
+			} catch (Exception e) {
+				return new ResponseEntity<>(HttpStatus.INTERNAL_SERVER_ERROR);
+			}
+		}
+
+
+		
+	//@DeleteMapping("/delete/{id}/{id2}")
+	//S'esborra la conversa dels usuaris id i id2
 	public ResponseEntity<HttpStatus> deleteConversa(@PathVariable("id") long id, @PathVariable("id2") long id2) {
 	try {
 			long idtaula = conversaRepository.findId(id, id2);
+			deleteAllMessages(idtaula);
 			conversaRepository.deleteById(idtaula);
 			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		} catch (Exception e) {
@@ -320,6 +340,7 @@ try {
 		}
 	}
 
+	//S'esborra el match, la conversa i els missatges de la conversa
 	@DeleteMapping("/delete/{id}/{id2}")
 	public ResponseEntity<HttpStatus> deleteMatch(@PathVariable("id") long id, @PathVariable("id2") long id2) {
 		try {

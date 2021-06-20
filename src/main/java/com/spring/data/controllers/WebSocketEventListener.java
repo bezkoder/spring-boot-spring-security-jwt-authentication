@@ -1,4 +1,4 @@
-/*package com.spring.data.controllers;
+package com.spring.data.controllers;
 
 import org.slf4j.LoggerFactory;
 
@@ -41,5 +41,4 @@ public class WebSocketEventListener {
 
     }
 
-
-}*/
+}
