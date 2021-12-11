@@ -7,7 +7,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class SpringBootSecurityJwtApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(SpringBootSecurityJwtApplication.class, args);
+    SpringApplication.run(SpringBootSecurityJwtApplication.class, args);
 	}
 
 }
