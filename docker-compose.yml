@@ -1,0 +1,27 @@
+version: "3.8"
+services:
+  spring-boot-jwt-auth:
+    build: .
+    image: spring-boot-jwt-auth-img
+    ports:
+      - "8080:8080"
+    environment:
+      - spring.profiles.active=docker
+    depends_on:
+      - mysqldb
+    restart: on-failure
+
+  mysqldb:
+    image: mysql:5.7
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_USER=root
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_DATABASE=testdb
+    restart: unless-stopped
+    volumes:
+      - db:/var/lib/mysql
+
+volumes:
+  db:
