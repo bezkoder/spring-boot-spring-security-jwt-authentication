@@ -21,6 +21,27 @@ For more detail, please visit:
 
 For instruction: [Spring Boot Refresh Token with JWT example](https://bezkoder.com/spring-boot-refresh-token-jwt/)
 
+## More Practice:
+> [Spring Boot File upload example with Multipart File](https://bezkoder.com/spring-boot-file-upload/)
+
+> [Exception handling: @RestControllerAdvice example in Spring Boot](https://bezkoder.com/spring-boot-restcontrolleradvice/)
+
+> [Spring Boot Repository Unit Test with @DataJpaTest](https://bezkoder.com/spring-boot-unit-test-jpa-repo-datajpatest/)
+
+> [Spring Boot Pagination & Sorting example](https://www.bezkoder.com/spring-boot-pagination-sorting-example/)
+
+Associations:
+> [Spring Boot One To Many example with Spring JPA, Hibernate](https://www.bezkoder.com/jpa-one-to-many/)
+
+> [Spring Boot Many To Many example with Spring JPA, Hibernate](https://www.bezkoder.com/jpa-many-to-many/)
+
+> [JPA One To One example with Spring Boot](https://www.bezkoder.com/jpa-one-to-one/)
+
+Deployment:
+> [Deploy Spring Boot App on AWS – Elastic Beanstalk](https://www.bezkoder.com/deploy-spring-boot-aws-eb/)
+
+> [Docker Compose Spring Boot and MySQL example](https://www.bezkoder.com/docker-compose-spring-boot-mysql/)
+
 ## Fullstack Authentication
 
 > [Spring Boot + Vue.js JWT Authentication](https://bezkoder.com/spring-boot-vue-js-authentication-jwt-spring-security/)
@@ -32,6 +53,10 @@ For instruction: [Spring Boot Refresh Token with JWT example](https://bezkoder.c
 > [Spring Boot + Angular 11 JWT Authentication](https://bezkoder.com/angular-11-spring-boot-jwt-auth/)
 
 > [Spring Boot + Angular 12 JWT Authentication](https://www.bezkoder.com/angular-12-spring-boot-jwt-auth/)
+
+> [Spring Boot + Angular 13 JWT Authentication](https://www.bezkoder.com/angular-13-spring-boot-jwt-auth/)
+
+> [Spring Boot + Angular 14 JWT Authentication](https://www.bezkoder.com/angular-14-spring-boot-jwt-auth/)
 
 > [Spring Boot + React JWT Authentication](https://bezkoder.com/spring-boot-react-jwt-auth/)
 
@@ -69,6 +94,12 @@ For instruction: [Spring Boot Refresh Token with JWT example](https://bezkoder.c
 
 > [Angular 13 + Spring Boot + PostgreSQL example](https://www.bezkoder.com/spring-boot-angular-13-postgresql/)
 
+> [Angular 14 + Spring Boot + H2 Embedded Database example](https://www.bezkoder.com/spring-boot-angular-14-crud/)
+
+> [Angular 14 + Spring Boot + MySQL example](https://www.bezkoder.com/spring-boot-angular-14-mysql/)
+
+> [Angular 14 + Spring Boot + PostgreSQL example](https://www.bezkoder.com/spring-boot-angular-14-postgresql/)
+
 > [React + Spring Boot + MySQL example](https://bezkoder.com/react-spring-boot-crud/)
 
 > [React + Spring Boot + PostgreSQL example](https://bezkoder.com/spring-boot-react-postgresql/)
@@ -81,18 +112,6 @@ Run both Back-end & Front-end in one place:
 > [Integrate React.js with Spring Boot Rest API](https://bezkoder.com/integrate-reactjs-spring-boot/)
 
 > [Integrate Vue.js with Spring Boot Rest API](https://bezkoder.com/integrate-vue-spring-boot/)
-
-More Practice:
-> [Spring Boot File upload example with Multipart File](https://bezkoder.com/spring-boot-file-upload/)
-
-> [Exception handling: @RestControllerAdvice example in Spring Boot](https://bezkoder.com/spring-boot-restcontrolleradvice/)
-
-> [Spring Boot Repository Unit Test with @DataJpaTest](https://bezkoder.com/spring-boot-unit-test-jpa-repo-datajpatest/)
-
-Deployment:
-> [Deploy Spring Boot App on AWS – Elastic Beanstalk](https://www.bezkoder.com/deploy-spring-boot-aws-eb/)
-
-> [Docker Compose Spring Boot and MySQL example](https://www.bezkoder.com/docker-compose-spring-boot-mysql/)
 
 ## Dependency
 – If you want to use PostgreSQL:
