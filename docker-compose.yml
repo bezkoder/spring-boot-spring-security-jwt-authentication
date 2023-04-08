@@ -2,18 +2,18 @@ version: "2.1"
 services:
   spring-boot-jwt-auth:
     build: .
-    image: spring-boot-jwt-auth-img
+    image: spring-boot-jwt-auth
     ports:
       - "8080:8080"
     environment:
-      - spring.datasource.url=jdbc:mysql://mysqldb:3306/testdb?useSSL=false
+      - spring.datasource.url=jdbc:mysql://mysqldb:3306/testdb
     depends_on:
       mysqldb:
         condition: service_healthy
     restart: on-failure
 
   mysqldb:
-    image: mysql:5.7
+    image: mysql:8.0.32
     ports:
       - "3306:3306"
     environment:
@@ -23,5 +23,5 @@ services:
     restart: unless-stopped
     healthcheck:
       test: [ "CMD", "mysqladmin" ,"ping", "-h", "localhost" ]
-      timeout: 20s
-      retries: 10
+      timeout: 10s
+      retries: 5
