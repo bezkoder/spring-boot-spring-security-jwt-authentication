@@ -1,6 +1,6 @@
 package com.bezkoder.springjwt.payload.request;
 
-import javax.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotBlank;
 
 public class LoginRequest {
 	@NotBlank
