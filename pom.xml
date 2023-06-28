@@ -9,11 +9,11 @@
 		<version>3.1.0</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
-	<groupId>com.bezkoder</groupId>
-	<artifactId>spring-boot-security-jwt</artifactId>
+	<groupId>com.blaquesystems</groupId>
+	<artifactId>backend</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>spring-boot-security-jwt</name>
-	<description>Demo project for Spring Boot Security - JWT</description>
+	<name>backend</name>
+	<description>Digital Catalogue System</description>
 
 	<properties>
 		<java.version>17</java.version>
