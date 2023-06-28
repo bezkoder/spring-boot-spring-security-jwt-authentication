@@ -48,7 +48,6 @@ public class User {
   @Size(max = 120)
   private String password;
 
-  @NotBlank
   private Boolean active;
 
   @Temporal(TemporalType.TIMESTAMP)
