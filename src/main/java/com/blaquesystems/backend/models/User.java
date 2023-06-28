@@ -5,14 +5,19 @@ import java.util.HashSet;
 import java.util.Set;
 
 import jakarta.persistence.*;
+import jakarta.persistence.Id;
 import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import org.springframework.data.annotation.*;
+
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
-@Table(name = "users", 
+@Table(name = "users",
     uniqueConstraints = { 
       @UniqueConstraint(columnNames = "username"),
       @UniqueConstraint(columnNames = "phone") ,
@@ -23,7 +28,6 @@ public class User {
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   private Long id;
 
-  @NotBlank
   @Size(max = 20)
   private String username;
 
@@ -62,7 +66,6 @@ public class User {
 
   public User(String username, String email, String encode, String firstName, String lastName, String phone, Boolean active) {
   }
-
 
   public String getFirstName() {
     return firstName;
@@ -154,5 +157,21 @@ public class User {
 
   public void setRoles(Set<Role> roles) {
     this.roles = roles;
+  }
+
+  public Date getCreatedAt() {
+    return createdAt;
+  }
+
+  public void setCreatedAt(Date createdAt) {
+    this.createdAt = createdAt;
+  }
+
+  public Date getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(Date updatedAt) {
+    this.updatedAt = updatedAt;
   }
 }
