@@ -32,7 +32,6 @@ public class SignupRequest {
   @Size(max = 20)
   private String phone;
 
-  @NotBlank
   private Boolean active;
 
   public String getFirstName() {

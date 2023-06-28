@@ -12,17 +12,27 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 //import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 //import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.AuthenticationFilter;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 import com.blaquesystems.backend.security.jwt.AuthEntryPointJwt;
 import com.blaquesystems.backend.security.jwt.AuthTokenFilter;
+import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 
-@Configuration
+import java.util.List;
+
+//@Configuration
 @EnableMethodSecurity
+//@RequiredArgsConstructor
+@Configuration
+@EnableWebSecurity
 // (securedEnabled = true,
 // jsr250Enabled = true,
 // prePostEnabled = true) // by default
@@ -42,6 +52,10 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
 //  public void configure(AuthenticationManagerBuilder authenticationManagerBuilder) throws Exception {
 //    authenticationManagerBuilder.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder());
 //  }
+
+  protected void configure(HttpSecurity http) throws Exception {
+    http.csrf(csrf -> csrf.disable());
+  }
   
   @Bean
   public DaoAuthenticationProvider authenticationProvider() {
@@ -52,12 +66,6 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
    
       return authProvider;
   }
-
-//  @Bean
-//  @Override
-//  public AuthenticationManager authenticationManagerBean() throws Exception {
-//    return super.authenticationManagerBean();
-//  }
   
   @Bean
   public AuthenticationManager authenticationManager(AuthenticationConfiguration authConfig) throws Exception {
@@ -68,45 +76,67 @@ public class WebSecurityConfig { // extends WebSecurityConfigurerAdapter {
   public PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }
-
-//  @Override
-//  protected void configure(HttpSecurity http) throws Exception {
-//    http.cors().and().csrf().disable()
-//      .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//      .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//      .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-//      .antMatchers("/api/test/**").permitAll()
-//      .anyRequest().authenticated();
-//
-//    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-//  }
   
-  @Bean
-  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-    http.csrf(csrf -> csrf.disable())
-        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
-        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
-        .authorizeHttpRequests(auth ->
-          auth.requestMatchers("/api/auth/**").permitAll()
-              .requestMatchers("/api/test/**").permitAll()
-              .anyRequest().authenticated()
-        );
-
-    http.authenticationProvider(authenticationProvider());
-
-    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
-
-    return http.build();
-//    http.cors().and().csrf().disable()
-//            .exceptionHandling().authenticationEntryPoint(unauthorizedHandler).and()
-//            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-//            .authorizeRequests().antMatchers("/api/auth/**").permitAll()
-//            .antMatchers("/api/roles/**").permitAll()
-//            .antMatchers("/api/permission/**").permitAll()
-//            .antMatchers("/api/**").permitAll()
-//            .antMatchers("/api/test/**").permitAll()
-//            .anyRequest().authenticated();
+//  @Bean
+//  public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//    http.csrf(csrf -> csrf.disable())
+//        .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+//        .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+//        .authorizeHttpRequests(auth ->
+//          auth.requestMatchers("/api/auth/**").permitAll()
+////              .requestMatchers("/api/test/**").permitAll()
+//              .anyRequest().authenticated()
+//        );
+//
+//    http.authenticationProvider(authenticationProvider());
 //
 //    http.addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+//
+//    return http.build();
+//  }
+
+//  public final JwtService jwtService;
+
+  private void sharedSecurityConfiguration(HttpSecurity httpSecurity) throws Exception {
+    httpSecurity
+            .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
+            .authorizeHttpRequests(auth -> {
+              auth.requestMatchers("").permitAll();
+            });
+//    httpSecurity
+//            .csrf(AbstractHttpConfigurer::disable)
+//            .cors(AbstractHttpConfigurer::disable)
+//            .sessionManagement(httpSecuritySessionManagementConfigurer -> {
+//              httpSecuritySessionManagementConfigurer
+//                      .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+//            });
+  }
+
+  @Bean
+  public SecurityFilterChain securityFilterChainUsersAPI(HttpSecurity httpSecurity) throws Exception {
+    sharedSecurityConfiguration(httpSecurity);
+    httpSecurity
+            .csrf(csrf -> csrf.disable())
+            .securityMatcher("/api/auth/**")
+            .authorizeHttpRequests(auth -> {
+              auth.anyRequest().permitAll();
+            })
+    .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+    return httpSecurity.build();
+  }
+
+  @Bean
+  public SecurityFilterChain securityFilterChainAdminsAPI(HttpSecurity httpSecurity) throws Exception {
+    sharedSecurityConfiguration(httpSecurity);
+    httpSecurity
+            .csrf(csrf -> csrf.disable())
+            .securityMatcher("/api/test/**")
+            .authorizeHttpRequests(auth -> {
+              auth.anyRequest().authenticated();
+            })
+            .addFilterBefore(authenticationJwtTokenFilter(), UsernamePasswordAuthenticationFilter.class);
+
+    return httpSecurity.build();
   }
 }
