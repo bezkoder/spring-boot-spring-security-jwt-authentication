@@ -18,6 +18,9 @@ public class UserDetailsImpl implements UserDetails {
   private Long id;
 
   private String username;
+  private String firstName;
+  private String lastName;
+  private String phone;
 
   private String email;
 
@@ -26,10 +29,13 @@ public class UserDetailsImpl implements UserDetails {
 
   private Collection<? extends GrantedAuthority> authorities;
 
-  public UserDetailsImpl(Long id, String username, String email, String password,
+  public UserDetailsImpl(Long id, String username, String firstName, String lastName, String phone, String email, String password,
       Collection<? extends GrantedAuthority> authorities) {
     this.id = id;
     this.username = username;
+    this.lastName = lastName;
+    this.firstName = firstName;
+    this.phone = phone;
     this.email = email;
     this.password = password;
     this.authorities = authorities;
@@ -43,6 +49,9 @@ public class UserDetailsImpl implements UserDetails {
     return new UserDetailsImpl(
         user.getId(), 
         user.getUsername(), 
+        user.getFirstName(),
+        user.getLastName(),
+        user.getPhone(),
         user.getEmail(),
         user.getPassword(), 
         authorities);
@@ -89,6 +98,34 @@ public class UserDetailsImpl implements UserDetails {
   @Override
   public boolean isEnabled() {
     return true;
+  }
+
+  public void setId(Long id) {
+    this.id = id;
+  }
+
+  public String getFirstName() {
+    return firstName;
+  }
+
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
+
+  public String getLastName() {
+    return lastName;
+  }
+
+  public void setLastName(String lastName) {
+    this.lastName = lastName;
+  }
+
+  public String getPhone() {
+    return phone;
+  }
+
+  public void setPhone(String phone) {
+    this.phone = phone;
   }
 
   @Override

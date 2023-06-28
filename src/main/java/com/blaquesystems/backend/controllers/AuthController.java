@@ -69,7 +69,10 @@ public class AuthController {
         return ResponseEntity.ok(new JwtResponse(jwt,
                 userDetails.getId(),
                 userDetails.getUsername(),
+                userDetails.getFirstName(),
+                userDetails.getLastName(),
                 userDetails.getEmail(),
+                userDetails.getPhone(),
                 roles));
     }
 
@@ -87,6 +90,7 @@ public class AuthController {
                     .body(new MessageResponse("Error: Email is already in use!"));
         }
 
+        Date date = new Date();
         User user = new User();
         user.setUsername(signUpRequest.getUsername());
         user.setEmail(signUpRequest.getEmail());
@@ -96,8 +100,8 @@ public class AuthController {
         user.setLastName(signUpRequest.getLastName());
         user.setPhone(signUpRequest.getPhone());
         user.setActive(false);
-        user.setCreatedAt(new Date());
-        user.setUpdatedAt(new Date());
+        user.setCreatedAt(date);
+        user.setUpdatedAt(date);
 
         Set<String> strRoles = signUpRequest.getRole();
         Set<Role> roles = new HashSet<>();

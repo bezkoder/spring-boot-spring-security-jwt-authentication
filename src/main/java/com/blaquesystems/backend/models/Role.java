@@ -2,6 +2,9 @@ package com.blaquesystems.backend.models;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "roles")
 public class Role {
@@ -13,6 +16,12 @@ public class Role {
   @Column(length = 20)
   private ERole name;
 
+  @ManyToMany(fetch = FetchType.LAZY)
+  @JoinTable(name = "role_permissions",
+          joinColumns = @JoinColumn(name = "role_id"),
+          inverseJoinColumns = @JoinColumn(name = "permission_id"))
+  private Set<Permission> permissions = new HashSet<>();
+
   public Role() {
 
   }
@@ -20,6 +29,7 @@ public class Role {
   public Role(ERole name) {
     this.name = name;
   }
+
 
   public Integer getId() {
     return id;
