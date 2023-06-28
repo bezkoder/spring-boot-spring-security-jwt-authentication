@@ -26,6 +26,14 @@ public class Role {
 
   }
 
+  public Set<Permission> getPermissions() {
+    return permissions;
+  }
+
+  public void setPermissions(Set<Permission> permissions) {
+    this.permissions = permissions;
+  }
+
   public Role(ERole name) {
     this.name = name;
   }
