@@ -9,7 +9,6 @@ import com.mashape.unirest.http.Unirest;
 import com.blaquesystems.backend.repository.NotificationRepository;
 import com.blaquesystems.backend.utils.SmsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
