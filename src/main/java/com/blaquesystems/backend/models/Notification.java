@@ -35,6 +35,10 @@ public class Notification {
     @LastModifiedDate
     private Date updatedAt;
 
+    public Notification(){
+
+    }
+
     public Notification(User user, String message, Channel channel, Date createdAt, Date updatedAt) {
         this.user = user;
         this.message = message;

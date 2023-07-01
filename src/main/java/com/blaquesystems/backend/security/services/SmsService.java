@@ -11,6 +11,8 @@ import com.blaquesystems.backend.utils.SmsUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.UnsupportedEncodingException;
+import java.nio.charset.StandardCharsets;
 import java.util.Date;
 
 @Service
@@ -21,7 +23,8 @@ public class SmsService {
     @Autowired
     SmsUtils smsUtils;
 
-    public void sendSms(String message, User user, Channel channel) throws SmsSendingException {
+    public void sendSms(String message, User user, Channel channel) throws SmsSendingException, UnsupportedEncodingException {
+        message = java.net.URLEncoder.encode(message, StandardCharsets.UTF_8).replace("+", "%20");
         String fullUrl = smsUtils.getFullSmsUrl(message, 1);
         try {
             Unirest.setTimeouts(0, 0);
