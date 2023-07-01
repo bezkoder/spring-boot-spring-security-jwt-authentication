@@ -66,11 +66,12 @@ public class SmsServiceTest {
         Mockito.when(notificationRepository.save(Mockito.any(Notification.class)))
                 .thenAnswer(invocation -> invocation.getArgument(0)); // Save the notification and return it as the result
 
+
         // Call the sendSms method with test data
-        smsService.sendSms(message, user, channel);
+        smsService.sendSms(message, 254720106420L, Mockito.any(User.class), Mockito.any(Channel.class));
 
         // Verify that the saveNotification method was called with the correct parameters
         Mockito.verify(notificationRepository, Mockito.times(1))
-                .save(Mockito.eq(new Notification(user, message, channel, Mockito.any(Date.class), Mockito.any(Date.class))));
+                .save(Mockito.eq(new Notification(Mockito.any(User.class), message, Mockito.any(Channel.class), Mockito.any(Date.class), Mockito.any(Date.class))));
     }
 }

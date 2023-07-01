@@ -18,10 +18,8 @@ public class SmsUtils {
     @Value("${bezkoder.app.sms.secret}")
     private String secret;
 
-    @Value("${bezkoder.app.sms.MSISDN}")
-    private Long msisdn;
 
-    public String getFullSmsUrl(String message, int serviceId) {
+    public String getFullSmsUrl(String message, Long msisdn, int serviceId) {
         return String.format("%sapiClientID=%d&key=%s&secret=%s&txtMessage=%s&MSISDN=%d&serviceID=%d",
                 url, apiClientId, key, secret, message, msisdn, serviceId);
     }

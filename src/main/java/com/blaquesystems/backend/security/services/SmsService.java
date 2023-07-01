@@ -23,9 +23,9 @@ public class SmsService {
     @Autowired
     SmsUtils smsUtils;
 
-    public void sendSms(String message, User user, Channel channel) throws SmsSendingException, UnsupportedEncodingException {
+    public void sendSms(String message, Long msisdn, User user, Channel channel) throws SmsSendingException, UnsupportedEncodingException {
         message = java.net.URLEncoder.encode(message, StandardCharsets.UTF_8).replace("+", "%20");
-        String fullUrl = smsUtils.getFullSmsUrl(message, 1);
+        String fullUrl = smsUtils.getFullSmsUrl(message, msisdn, 1);
         try {
             Unirest.setTimeouts(0, 0);
             HttpResponse<String> response = Unirest.post(fullUrl).asString();
