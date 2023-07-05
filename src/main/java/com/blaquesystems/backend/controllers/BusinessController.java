@@ -57,7 +57,7 @@ public class BusinessController {
                     .body(new MessageResponse("Error: Business does not exist!"));
         }
 
-        if (businessRepository.existsByName(business.getName())) {
+        if (businessRepository.existsByName(business.getName()) && ) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: name is already taken!"));
@@ -113,15 +113,9 @@ public class BusinessController {
     };
 
     @DeleteMapping("/list/delete")
-    public ResponseEntity<?> deleteAll(@PathVariable("id") Long id){
-
-        if (!Objects.nonNull(businessRepository.findById(id).get())){
-            return ResponseEntity
-                    .badRequest()
-                    .body(new MessageResponse("Error: Business does not exist!"));
-        }
+    public ResponseEntity<?> deleteAll(){
         businessRepository.deleteAll();
 
-        return ResponseEntity.ok().body(new MessageResponse("Business deleted successfully!"));
+        return ResponseEntity.ok().body(new MessageResponse("All Businesses deleted successfully!"));
     };
 }
