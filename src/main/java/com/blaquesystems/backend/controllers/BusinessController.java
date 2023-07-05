@@ -57,7 +57,7 @@ public class BusinessController {
                     .body(new MessageResponse("Error: Business does not exist!"));
         }
 
-        if (businessRepository.existsByName(business.getName()) && ) {
+        if (businessRepository.existsByName(business.getName())) {
             return ResponseEntity
                     .badRequest()
                     .body(new MessageResponse("Error: name is already taken!"));
