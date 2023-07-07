@@ -1,6 +1,5 @@
 package com.blaquesystems.backend.controllers;
 
-
 import com.blaquesystems.backend.models.Business;
 import com.blaquesystems.backend.payload.response.MessageResponse;
 import com.blaquesystems.backend.repository.BusinessRepository;
@@ -50,6 +49,34 @@ public class BusinessController {
 
     @PutMapping("/update/{id}")
     public ResponseEntity<?> update(@RequestBody Business business, @PathVariable("id") Long id){
+
+        if (!Objects.nonNull(businessRepository.findById(id).get())){
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: Business does not exist!"));
+        }
+
+        if (businessRepository.existsByName(business.getName())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: name is already taken!"));
+        } else if (businessRepository.existsByEmail(business.getEmail())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: email is already taken!"));
+        } else if (businessRepository.existsByContact(business.getContact())) {
+            return ResponseEntity
+                    .badRequest()
+                    .body(new MessageResponse("Error: contact  already in use!"));
+        }
+        Date date = new Date();
+        business.setUpdatedAt(date);
+        return ResponseEntity.ok(businessRepository.save(business));
+    };
+
+//    To Do: Add media upload
+    @PutMapping("/update/avatar/{id}")
+    public ResponseEntity<?> updateAvatar(@RequestBody Business business, @PathVariable("id") Long id){
 
         if (!Objects.nonNull(businessRepository.findById(id).get())){
             return ResponseEntity
