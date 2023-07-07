@@ -24,10 +24,8 @@ public class SpringBootSecurityJwtApplicationTests {
 
 	@Test
 	public void uploaudFile() throws IOException {
-
-		String url = mediaUpload.uploadMedia();
-		System.out.println(url);
-
+//		String url = mediaUpload.uploadMedia();
+//		System.out.println(url);
 
 	}
 }

@@ -5,6 +5,7 @@ import com.cloudinary.utils.ObjectUtils;
 import org.springframework.stereotype.Service;
 
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
 import java.io.IOException;
@@ -23,15 +24,14 @@ public class MediaUpload {
     @Value("${cloudinary.api_secret}")
     private String api_secret;
 
-    public String uploadMedia() throws IOException {
+    public String uploadMedia(MultipartFile file) throws IOException {
         Map<String, String> config = new HashMap<>();
         config.put("cloud_name", cloud_name);
         config.put("api_key", api_key);
         config.put("api_secret", api_secret);
         Cloudinary cloudinary = new Cloudinary(config);
 
-        File file = new File("src/main/resources/suit.png");
-        Map uploadResult = cloudinary.uploader().upload(file, ObjectUtils.emptyMap());
+        Map uploadResult = cloudinary.uploader().upload(file.getBytes(), ObjectUtils.emptyMap());
 
         System.out.println(uploadResult.get("url"));
 
