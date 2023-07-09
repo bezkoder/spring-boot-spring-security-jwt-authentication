@@ -2,6 +2,7 @@ package com.blaquesystems.backend.service;
 
 import com.blaquesystems.backend.exception.SmsSendingException;
 import com.blaquesystems.backend.models.Channel;
+import com.blaquesystems.backend.models.EChannel;
 import com.blaquesystems.backend.models.Notification;
 import com.blaquesystems.backend.models.User;
 import com.blaquesystems.backend.repository.ChannelRepository;
@@ -29,12 +30,12 @@ public class SmsService {
     public void sendSms(String message, Long msisdn, User user) throws SmsSendingException, UnsupportedEncodingException {
         Channel channel;
 
-        if (channelRepository.existsByName("sms")){
-            channel = channelRepository.findByName("sms").orElse(null);
+        if (channelRepository.existsByName(EChannel.CHANNEL_SMS)){
+            channel = channelRepository.findByName(EChannel.CHANNEL_SMS).orElse(null);
         }
         else {
             Date now = new Date();
-            channel = new Channel("sms", "Send sms notifications.", now, now);
+            channel = new Channel(EChannel.CHANNEL_SMS, "Send sms notifications.", now, now);
             channelRepository.save(channel);
         }
         message = java.net.URLEncoder.encode(message, StandardCharsets.UTF_8).replace("+", "%20");

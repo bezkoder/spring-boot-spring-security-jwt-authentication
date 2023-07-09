@@ -2,6 +2,7 @@ package com.blaquesystems.backend.service;
 
 import com.blaquesystems.backend.exception.SmsSendingException;
 import com.blaquesystems.backend.models.Channel;
+import com.blaquesystems.backend.models.EChannel;
 import com.blaquesystems.backend.models.Notification;
 import com.blaquesystems.backend.models.User;
 import com.blaquesystems.backend.repository.ChannelRepository;
@@ -53,12 +54,12 @@ public class EmailService {
             User user = userRepository.findByEmail(email).orElse(null);
             Channel channel;
 
-            if (channelRepository.existsByName("email")){
-                channel = channelRepository.findByName("email").orElse(null);
+            if (channelRepository.existsByName(EChannel.CHANNEL_EMAIL)){
+                channel = channelRepository.findByName(EChannel.CHANNEL_EMAIL).orElse(null);
             }
             else {
                 Date now = new Date();
-                channel = new Channel("email", "Send email notifications", now, now);
+                channel = new Channel(EChannel.CHANNEL_EMAIL, "Send email notifications", now, now);
                 channelRepository.save(channel);
             }
 

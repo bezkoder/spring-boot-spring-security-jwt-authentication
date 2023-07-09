@@ -19,7 +19,7 @@ public class Channel {
     private Long id;
 
     @Size(max = 20)
-    private String name;
+    private EChannel name;
 
     @Size(max = 300)
     private String description;
@@ -36,7 +36,7 @@ public class Channel {
 
     public Channel(){}
 
-    public Channel(String name, String description, Date createdAt, Date updatedAt) {
+    public Channel(EChannel name, String description, Date createdAt, Date updatedAt) {
         this.name = name;
         this.description = description;
         this.createdAt = createdAt;
@@ -51,11 +51,11 @@ public class Channel {
         this.id = id;
     }
 
-    public String getName() {
+    public EChannel getName() {
         return name;
     }
 
-    public void setName(String name) {
+    public void setName(EChannel name) {
         this.name = name;
     }
 
