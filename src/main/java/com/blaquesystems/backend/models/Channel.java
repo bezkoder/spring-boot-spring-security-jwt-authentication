@@ -8,7 +8,10 @@ import org.springframework.data.annotation.LastModifiedDate;
 import java.util.Date;
 
 @Entity
-@Table(name = "channels")
+@Table(name = "channels",
+        uniqueConstraints = {
+        @UniqueConstraint(columnNames = "name")
+})
 public class Channel {
 
     @Id

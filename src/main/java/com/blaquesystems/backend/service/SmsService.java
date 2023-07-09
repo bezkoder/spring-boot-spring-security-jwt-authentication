@@ -4,6 +4,7 @@ import com.blaquesystems.backend.exception.SmsSendingException;
 import com.blaquesystems.backend.models.Channel;
 import com.blaquesystems.backend.models.Notification;
 import com.blaquesystems.backend.models.User;
+import com.blaquesystems.backend.repository.ChannelRepository;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;
 import com.blaquesystems.backend.repository.NotificationRepository;
@@ -21,9 +22,21 @@ public class SmsService {
     @Autowired
     NotificationRepository notificationRepository;
     @Autowired
+    ChannelRepository channelRepository;
+    @Autowired
     SmsUtils smsUtils;
 
-    public void sendSms(String message, Long msisdn, User user, Channel channel) throws SmsSendingException, UnsupportedEncodingException {
+    public void sendSms(String message, Long msisdn, User user) throws SmsSendingException, UnsupportedEncodingException {
+        Channel channel;
+
+        if (channelRepository.existsByName("sms")){
+            channel = channelRepository.findByName("sms").orElse(null);
+        }
+        else {
+            Date now = new Date();
+            channel = new Channel("sms", "Send sms notifications.", now, now);
+            channelRepository.save(channel);
+        }
         message = java.net.URLEncoder.encode(message, StandardCharsets.UTF_8).replace("+", "%20");
         String fullUrl = smsUtils.getFullSmsUrl(message, msisdn, 1);
         try {
