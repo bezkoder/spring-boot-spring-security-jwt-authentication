@@ -6,16 +6,16 @@ import org.springframework.stereotype.Component;
 @Component
 public class SmsUtils {
 
-    @Value("${bezkoder.app.sms.url}")
+    @Value("${sms.url}")
     private String url;
 
-    @Value("${bezkoder.app.sms.apiClientID}")
+    @Value("${sms.apiClientID}")
     private int apiClientId;
 
-    @Value("${bezkoder.app.sms.key}")
+    @Value("${sms.key}")
     private String key;
 
-    @Value("${bezkoder.app.sms.secret}")
+    @Value("${sms.secret}")
     private String secret;
 
 
