@@ -1,25 +1,23 @@
 package com.blaquesystems.backend.controllers;
 
-import java.util.Date;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.io.File;
+import java.io.IOException;
+import java.util.*;
 import java.util.stream.Collectors;
 
+import com.blaquesystems.backend.service.MediaUpload;
+import com.cloudinary.utils.ObjectUtils;
 import jakarta.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.blaquesystems.backend.models.ERole;
 import com.blaquesystems.backend.models.Role;
@@ -32,6 +30,7 @@ import com.blaquesystems.backend.repository.RoleRepository;
 import com.blaquesystems.backend.repository.UserRepository;
 import com.blaquesystems.backend.security.jwt.JwtUtils;
 import com.blaquesystems.backend.security.services.UserDetailsImpl;
+import org.springframework.web.multipart.MultipartFile;
 
 import javax.swing.*;
 
@@ -53,6 +52,9 @@ public class AuthController {
 
     @Autowired
     JwtUtils jwtUtils;
+
+    @Autowired
+    MediaUpload mediaUpload;
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
@@ -138,5 +140,22 @@ public class AuthController {
         userRepository.save(user);
 
         return ResponseEntity.ok(new MessageResponse("User registered successfully!"));
+    }
+
+    @PostMapping("/upload")
+    public ResponseEntity<?> uploadImage(@RequestParam("file") MultipartFile file) {
+        try {
+            // Upload the image to Cloudinary
+            String url = mediaUpload.uploadMedia(file);
+            Map<String, Object> uploadResult = new HashMap<>();
+            uploadResult.put("url", url);
+
+            // You can perform further operations or return the URL as a response
+            return ResponseEntity.ok(uploadResult);
+        } catch (IOException e) {
+            System.out.println(e.getMessage());
+            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Image upload failed.");
+        }
     }
 }
