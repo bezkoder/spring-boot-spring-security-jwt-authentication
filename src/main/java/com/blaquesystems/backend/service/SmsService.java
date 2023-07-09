@@ -1,4 +1,4 @@
-package com.blaquesystems.backend.security.services;
+package com.blaquesystems.backend.service;
 
 import com.blaquesystems.backend.exception.SmsSendingException;
 import com.blaquesystems.backend.models.Channel;

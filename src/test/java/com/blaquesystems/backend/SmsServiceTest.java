@@ -8,7 +8,7 @@ import com.blaquesystems.backend.models.User;
 import com.blaquesystems.backend.repository.ChannelRepository;
 import com.blaquesystems.backend.repository.NotificationRepository;
 import com.blaquesystems.backend.repository.UserRepository;
-import com.blaquesystems.backend.security.services.SmsService;
+import com.blaquesystems.backend.service.SmsService;
 import org.junit.jupiter.api.*;
 import org.mockito.Mock;
 import org.mockito.Mockito;
