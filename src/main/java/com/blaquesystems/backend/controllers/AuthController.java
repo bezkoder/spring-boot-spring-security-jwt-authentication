@@ -33,6 +33,8 @@ import com.blaquesystems.backend.repository.UserRepository;
 import com.blaquesystems.backend.security.jwt.JwtUtils;
 import com.blaquesystems.backend.security.services.UserDetailsImpl;
 
+import javax.swing.*;
+
 @CrossOrigin(origins = "*", maxAge = 3600)
 @RestController
 @RequestMapping("/api/auth")
@@ -54,7 +56,6 @@ public class AuthController {
 
     @PostMapping("/signin")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody LoginRequest loginRequest) {
-
         Authentication authentication = authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
 
